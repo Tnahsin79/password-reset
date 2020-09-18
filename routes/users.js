@@ -34,7 +34,7 @@ router.post("/register",async function(req,res){
   }
 });
 
-router.post("/login",async function(req,res,next){
+router.post("/login",async function(req,res){
   try
   {
     var client=await mongoClient.connect(url);
