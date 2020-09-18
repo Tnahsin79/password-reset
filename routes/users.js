@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.post("/register",async function(req,res,next){
+router.post("/register",async function(req,res){
   try
   {
     var client=await mongoClient.connect(url);
@@ -20,12 +20,14 @@ router.post("/register",async function(req,res,next){
     //store in db
     req.body.password=hash;
     await db.collection("user").insertOne(req.body);
+    console.log("user registered");
     res.json({
       message:"User Registered!"
     })
   }
   catch(error)
   {
+    console.log("ERROR: "+error);
     res.json({
       message:"Something went wrong: "+error
     })
