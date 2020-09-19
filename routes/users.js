@@ -41,8 +41,8 @@ router.post("/register", async function (req, res) {
         port: 587,
         secure: false, // true for 465, false for other ports
         auth: {
-          user: "", // generated ethereal user
-          pass: "", // generated ethereal password
+          user: "fullstack.webtesting@gmail.com", // generated ethereal user
+          pass: "tnahsin79", // generated ethereal password
         },
         tls: {
           // do not fail on invalid certs
@@ -52,7 +52,7 @@ router.post("/register", async function (req, res) {
     
       // send mail with defined transport object
       let info = await transporter.sendMail({
-        from: '"Nishant" tnahsin79@gmail.com', // sender address
+        from: '"Nishant" fullstack.webtesting@gmail.com', // sender address
         to: req.body.email, // list of receivers
         subject: "testing...", // Subject line
         text: "Hello world?", // plain text body
