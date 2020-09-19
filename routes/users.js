@@ -50,17 +50,27 @@ router.post("/register", async function (req, res) {
           rejectUnauthorized: false
         }
       });
-    
-      // send mail with defined transport object
-      let info = await transporter.sendMail({
+
+      let mailOptions={
         from: '"Nishant" <fullstack.webtesting@gmail.com>', // sender address
         to: "fullstack.webtesting@gmail.com", // list of receivers
         subject: "testing...", // Subject line
         text: "Hello world?", // plain text body
         html: data // html body
+      };
+    
+      // send mail with defined transport object
+      transporter.sendMail(mailOptions,(error,info)=>{
+        if(error)
+        {
+          console.log("error: "+error);
+        }
+        else
+        {
+          console.log("Message sent: %s", info.messageId);
+          console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+        }
       });
-      console.log("Message sent: %s", info.messageId);
-      console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     }
     else
     {
