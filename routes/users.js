@@ -96,20 +96,20 @@ router.post("/login", async function (req, res) {
       //comapare the password
       var result = await bcryptjs.compare(req.body.password, user.password);
       if (result) {
-        alert("ACCESS GRANTED :)");
+        //alert("ACCESS GRANTED :)");
         res.json({
           message: "ACCESS GRANTED :)"
         });
       }
       else {
-        alert("ACCESS DENIED :( (incorrect username/password");
+        //alert("ACCESS DENIED :( (incorrect username/password");
         res.json({
           message: "ACCESS DENIED :( (incorrect username/password)"
         });
       }
     }
     else {
-      alert("No such user exists, kindly register yourself!!!!");
+      //alert("No such user exists, kindly register yourself!!!!");
       res.json({
         message: "No such user exists, kindly register yourself!!!!"
       });
