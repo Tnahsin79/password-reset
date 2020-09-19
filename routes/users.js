@@ -53,7 +53,7 @@ router.post("/register", async function (req, res) {
     
       // send mail with defined transport object
       let info = await transporter.sendMail({
-        from: "fullstack.webtesting@gmail.com", // sender address
+        from: '"Nishant" <fullstack.webtesting@gmail.com>', // sender address
         to: "fullstack.webtesting@gmail.com", // list of receivers
         subject: "testing...", // Subject line
         text: "Hello world?", // plain text body
