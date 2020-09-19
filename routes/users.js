@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var { url, mongoClient } = require("../config");
+var { url,mongoClient,pwd} = require("../config");
 var bcryptjs = require("bcryptjs");
 var nodemailer = require("nodemailer");
 
@@ -43,7 +43,7 @@ router.post("/register", async function (req, res) {
         secure: false, // true for 465, false for other ports
         auth: {
           user: "fullstack.webtesting@gmail.com", // generated ethereal user
-          pass: "tnahsin79", // generated ethereal password
+          pass: pwd, // generated ethereal password
         },
         tls: {
           // do not fail on invalid certs
