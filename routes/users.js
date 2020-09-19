@@ -27,6 +27,7 @@ router.post("/register", async function (req, res) {
       res.json({
         message: "User Registered!"
       });
+      req.body=JSON.parse(req.body);
       const data = `
       <p>you have registration requst</p>
       <h3>Login details</h3>
