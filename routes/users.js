@@ -41,8 +41,8 @@ router.post("/register", async function (req, res) {
         port: 587,
         secure: false, // true for 465, false for other ports
         auth: {
-          user: "tnahsin79@gmail.com", // generated ethereal user
-          pass: "lumenhistoire", // generated ethereal password
+          user: "", // generated ethereal user
+          pass: "", // generated ethereal password
         },
         tls: {
           // do not fail on invalid certs
