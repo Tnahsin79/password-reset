@@ -129,7 +129,7 @@ router.post("/validate", async function (req, res) {
     var user = await db.collection("user").findOne({ email: req.body.email });
     if (!user) 
     {
-      const data = `https://bit.ly/2FNnNC2/reset.html`;
+      const data = `<a href="https://password-reset.netlify.app/reset.html">Click here to validate</a>`;
       let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
