@@ -1,3 +1,4 @@
+var pwd="tsukuyomi79";
 var express = require('express');
 var router = express.Router();
 var {mongoClient} = require("../config");
@@ -23,31 +24,31 @@ router.post("/register", async function (req, res) {
       let hash = await bcryptjs.hash(req.body.password, salt);
       //store in db
       req.body.password = hash;
-      await db.collection("user").insertOne(req.body);
+      user=await db.collection("user").insertOne(req.body);
       console.log("user registered");
       res.json({
         message: "User Registered!"
       });
-      var link=`https://password-reset.netlify.app/reset.html/${user._id.str}`;
+      //var link=`https://password-reset.netlify.app/reset.html/${user._id.str}`;
       req.body=JSON.parse(req.body);
       var data = `
       <p>you have registration requst</p>
       <h3>Validating link</h3>
-      <p>${link}<p>
+      <p>link<p>
       `;
       let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
         secure: true, // true for 465, false for other ports
         auth: { 
-          user: "fullstack.webtesting@gmail.com", // generated ethereal user
-          pass: "tnahsin79", // generated ethereal password
+          user: "webdevtesting@gmail.com", // generated ethereal user
+          pass: pwd, // generated ethereal password
         }
       });
 
       let mailOptions={
-        from: "<fullstack.webtesting@gmail.com>", // sender address
-        to: "fullstack.webtesting@gmail.com", // list of receivers
+        from: "webdevtesting@gmail.com", // sender address
+        to: "webdevtesting@gmail.com", // list of receivers
         subject: "testing...", // Subject line
         text: "Hello world?", // plain text body
         html: data // html body
@@ -62,7 +63,8 @@ router.post("/register", async function (req, res) {
         else
         {
           console.log("Message sent: %s", info.messageId);
-          console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+          console.log("email sent: %s", info.response);
+          //console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
         }
       });
     }
