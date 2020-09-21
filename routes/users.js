@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
 
 router.post("/register", async function (req, res) {
   try {
-    var client = await mongoClient.connect(pocess.env.url);
+    var client = await mongoClient.connect("mongodb+srv://Tnahsin79:tnahsin79@guvi-zen.iisub.mongodb.net?retryWrites=true&w=majority");
     var db = client.db("user-login");
     var user = await db.collection("user").findOne({ email: req.body.email });
     if (!user) 
@@ -41,12 +41,12 @@ router.post("/register", async function (req, res) {
         secure: true, // true for 465, false for other ports
         auth: { 
           user: "fullstack.webtesting@gmail.com", // generated ethereal user
-          pass: process.env.pwd, // generated ethereal password
+          pass: "tnahsin79", // generated ethereal password
         }
       });
 
       let mailOptions={
-        from: '"Nishant" <fullstack.webtesting@gmail.com>', // sender address
+        from: "<fullstack.webtesting@gmail.com>", // sender address
         to: "fullstack.webtesting@gmail.com", // list of receivers
         subject: "testing...", // Subject line
         text: "Hello world?", // plain text body
