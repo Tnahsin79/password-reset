@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var { url,mongoClient,pwd} = require("../config");
+var {mongoClient} = require("../config");
 var bcryptjs = require("bcryptjs");
 var nodemailer = require("nodemailer");
+require('dotenv').config();
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -11,7 +12,7 @@ router.get('/', function (req, res, next) {
 
 router.post("/register", async function (req, res) {
   try {
-    var client = await mongoClient.connect(url);
+    var client = await mongoClient.connect(pocess.env.url);
     var db = client.db("user-login");
     var user = await db.collection("user").findOne({ email: req.body.email });
     if (!user) 
@@ -27,27 +28,20 @@ router.post("/register", async function (req, res) {
       res.json({
         message: "User Registered!"
       });
+      var link=`https://password-reset.netlify.app/reset.html/${user._id.str}`;
       req.body=JSON.parse(req.body);
-      const data = `
+      var data = `
       <p>you have registration requst</p>
-      <h3>Login details</h3>
-      <ul>
-      <li>First Name: ${req.body.first_name}</li>
-      <li>Last Name: ${req.body.last_name}</li>
-      <li>Email: ${req.body.email}</li>
-      <ul>
+      <h3>Validating link</h3>
+      <p>${link}<p>
       `;
       let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
         secure: true, // true for 465, false for other ports
-        auth: {
+        auth: { 
           user: "fullstack.webtesting@gmail.com", // generated ethereal user
-          pass: pwd, // generated ethereal password
-        },
-        tls: {
-          // do not fail on invalid certs
-          rejectUnauthorized: false
+          pass: process.env.pwd, // generated ethereal password
         }
       });
 
