@@ -51,7 +51,7 @@ router.post("/register", async function (req, res) {
 
       let mailOptions={
         from: "webdevtesting79@gmail.com", // sender address
-        to: req.body.email, // list of receivers
+        to: "webdevtesting79@gmail.com", // list of receivers
         subject: "testing...", // Subject line
         text: "Hello world?", // plain text body
         html: data // html body
