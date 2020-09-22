@@ -4,7 +4,10 @@ var router = express.Router();
 var {mongoClient} = require("../config");
 var bcryptjs = require("bcryptjs");
 var nodemailer = require("nodemailer");
-require('dotenv').config();
+require('dotenv/config');
+
+console.log(process.env.URL);
+//console.log(process.env.PWD);
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -13,7 +16,7 @@ router.get('/', function (req, res, next) {
 
 router.post("/register", async function (req, res) {
   try {
-    var client = await mongoClient.connect("mongodb+srv://Tnahsin79:tnahsin79@guvi-zen.iisub.mongodb.net?retryWrites=true&w=majority");
+    var client = await mongoClient.connect(process.env.URL);
     var db = client.db("user-login");
     var user = await db.collection("user").findOne({ email: req.body.email });
     if (!user) 
@@ -42,7 +45,7 @@ router.post("/register", async function (req, res) {
         secure: true, // true for 465, false for other ports
         auth: { 
           user: "webdevtesting@gmail.com", // generated ethereal user
-          pass: pwd, // generated ethereal password
+          pass: process.env.PWD, // generated ethereal password
         }
       });
 
@@ -84,7 +87,7 @@ router.post("/register", async function (req, res) {
 
 router.post("/login", async function (req, res) {
   try {
-    var client = await mongoClient.connect(url);
+    var client = await mongoClient.connect(process.env.URL);
     var db = client.db("user-login");
     //find the user with email
     var user = await db.collection("user").findOne({ email: req.body.email });
@@ -120,7 +123,7 @@ router.post("/login", async function (req, res) {
 
 router.post("/validate", async function (req, res) {
   try {
-    var client = await mongoClient.connect(url);
+    var client = await mongoClient.connect(process.env.URL);
     var db = client.db("user-login");
     var user = await db.collection("user").findOne({ email: req.body.email });
     if (!user) 
@@ -177,7 +180,7 @@ router.post("/validate", async function (req, res) {
 
 /*router.post("/reset", async function (req, res) {
   try {
-    var client = await mongoClient.connect(url);
+    var client = await mongoClient.connect(process.env.URL);
     var db = client.db("user-login");
     //find the user with email
     var user = await db.collection("user").findOne({ email: req.body.email });
