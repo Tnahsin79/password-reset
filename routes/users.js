@@ -33,7 +33,7 @@ router.post("/register", async function (req, res) {
         message: "User Registered!"
       });
       //var link=`https://password-reset.netlify.app/reset.html/${user._id.str}`;
-      req.body=JSON.parse(req.body);
+      req.body=req.body.json();
       var data = `
       <p>you have registration requst</p>
       <h3>Validating link</h3>
@@ -51,7 +51,7 @@ router.post("/register", async function (req, res) {
 
       let mailOptions={
         from: "webdevtesting@gmail.com", // sender address
-        to: "webdevtesting@gmail.com", // list of receivers
+        to: req.body.email, // list of receivers
         subject: "testing...", // Subject line
         text: "Hello world?", // plain text body
         html: data // html body
