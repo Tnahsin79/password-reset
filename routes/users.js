@@ -40,7 +40,7 @@ router.post("/register", async function (req, res) {
       <p>link<p>
       `;
       let transporter = nodemailer.createTransport({
-        service: "gmail",
+        service: "Gmail",
         host: "smtp.gmail.com",
         port: 465,
         secure: true, // true for 465, false for other ports
