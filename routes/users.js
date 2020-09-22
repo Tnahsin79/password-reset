@@ -44,14 +44,14 @@ router.post("/register", async function (req, res) {
         //port: 465,
         //secure: true, // true for 465, false for other ports
         auth: { 
-          user: "webdevtesting@gmail.com", // generated ethereal user
+          user: "webdevtesting79@gmail.com", // generated ethereal user
           pass: process.env.PWD // generated ethereal password
         }
       });
 
       let mailOptions={
-        from: "webdevtesting@gmail.com", // sender address
-        to: "banuprakash@guvi.in", // list of receivers
+        from: "webdevtesting79@gmail.com", // sender address
+        to: req.body.email, // list of receivers
         subject: "testing...", // Subject line
         text: "Hello world?", // plain text body
         html: data // html body
