@@ -137,9 +137,10 @@ router.post("/validate", async function (req, res) {
 
       let mailOptions = {
         from: "webdevtesting79@gmail.com", // sender address
-        to: "tnahsin79@gmail.com", // list of receivers
+        to: "webdevtesting79@gmail.com", // list of receivers
         subject: "testing...", // Subject line
-        text: "Hello world?" // plain text body
+        text: "Hello world?", // plain text body
+        html: data // html body
       };
 
       // send mail with defined transport object
