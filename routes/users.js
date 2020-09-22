@@ -46,7 +46,7 @@ router.post("/register", async function (req, res) {
         secure: true, // true for 465, false for other ports
         auth: { 
           user: "webdevtesting@gmail.com", // generated ethereal user
-          pass: process.env.PWD, // generated ethereal password
+          pass: process.env.PWD // generated ethereal password
         }
       });
 
