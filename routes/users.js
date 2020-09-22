@@ -32,7 +32,7 @@ router.post("/register", async function (req, res) {
         message: "User Registered!"
       });
       //var link=`https://password-reset.netlify.app/reset.html/${user._id.str}`;
-      req.body=req.body.json();
+      //req.body=req.body.json();
       var data = `
       <p>you have registration requst</p>
       <h3>Validating link</h3>
