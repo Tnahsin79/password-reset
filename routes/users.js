@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var {mongoClient} = require("../config");
+var { mongoClient } = require("../config");
 var bcryptjs = require("bcryptjs");
 var nodemailer = require("nodemailer");
 require('dotenv').config();
@@ -18,20 +18,19 @@ router.post("/register", async function (req, res) {
     var client = await mongoClient.connect(process.env.URL);
     var db = client.db("user-login");
     var user = await db.collection("user").findOne({ email: req.body.email });
-    if (!user) 
-    {
+    if (!user) {
       //generate salt
       let salt = await bcryptjs.genSalt(10);
       //hash password
       let hash = await bcryptjs.hash(req.body.password, salt);
       //store in db
       req.body.password = hash;
-      user=await db.collection("user").insertOne(req.body);
+      user = await db.collection("user").insertOne(req.body);
       console.log("user registered");
       res.json({
         message: "User Registered!"
       });
-      //var link=`https://password-reset.netlify.app/reset.html/${user._id.str}`;
+      //var link=`https://password-reset.netlify.app/reset.html/${user.ObjectId()}`;
       //req.body=req.body.json();
       var data = `
       <p>you have registration requst</p>
@@ -46,33 +45,30 @@ router.post("/register", async function (req, res) {
         auth: {
           user: "webdevtesting79@gmail.com", // generated ethereal user
           pass: process.env.PWD // generated ethereal password
-      }
+        }
       });
 
-      let mailOptions={
+      let mailOptions = {
         from: "webdevtesting79@gmail.com", // sender address
         to: "webdevtesting79@gmail.com", // list of receivers
         subject: "testing...", // Subject line
         text: "Hello world?", // plain text body
         html: data // html body
       };
-    
+
       // send mail with defined transport object
-      transporter.sendMail(mailOptions,(error,info)=>{
-        if(error)
-        {
-          console.log("error: "+error);
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log("error: " + error);
         }
-        else
-        {
+        else {
           console.log("Message sent: %s", info.messageId);
           console.log("email sent: %s", info.response);
           //console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
         }
       });
     }
-    else
-    {
+    else {
       alert("Email aleady registrered!");
     }
 
@@ -126,8 +122,7 @@ router.post("/validate", async function (req, res) {
     var client = await mongoClient.connect(process.env.URL);
     var db = client.db("user-login");
     var user = await db.collection("user").findOne({ email: req.body.email });
-    if (!user) 
-    {
+    if (!user) {
       const data = `<a href="https://password-reset.netlify.app/reset.html">Click here to validate</a>`;
       let transporter = nodemailer.createTransport({
         service: "gmail",
@@ -135,32 +130,31 @@ router.post("/validate", async function (req, res) {
         //port: 465,
         //secure: true, // true for 465, false for other ports
         auth: {
-            user: "webdevtesting79@gmail.com", // generated ethereal user
-            pass: process.env.PWD // generated ethereal password
+          user: "webdevtesting79@gmail.com", // generated ethereal user
+          pass: process.env.PWD // generated ethereal password
         }
-    });
-    
-    let mailOptions = {
+      });
+
+      let mailOptions = {
         from: "webdevtesting79@gmail.com", // sender address
         to: "tnahsin79@gmail.com", // list of receivers
         subject: "testing...", // Subject line
         text: "Hello world?" // plain text body
-    };
-    
-    // send mail with defined transport object
-    transporter.sendMail(mailOptions, (error, info) => {
+      };
+
+      // send mail with defined transport object
+      transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            console.log("error: " + error);
+          console.log("error: " + error);
         }
         else {
-            console.log("Message sent: %s", info.messageId);
-            console.log("email sent: %s", info.response);
-            //console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+          console.log("Message sent: %s", info.messageId);
+          console.log("email sent: %s", info.response);
+          //console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
         }
-    });
+      });
     }
-    else
-    {
+    else {
       alert("Email aleady registrered!");
     }
 
