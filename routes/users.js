@@ -1,10 +1,9 @@
-var pwd="tsukuyomi79";
 var express = require('express');
 var router = express.Router();
 var {mongoClient} = require("../config");
 var bcryptjs = require("bcryptjs");
 var nodemailer = require("nodemailer");
-require('dotenv/config');
+require('dotenv').config();
 
 console.log(process.env.URL);
 //console.log(process.env.PWD);
@@ -42,8 +41,8 @@ router.post("/register", async function (req, res) {
       let transporter = nodemailer.createTransport({
         service: "gmail",
         host: "smtp.gmail.com",
-        port: 465,
-        secure: true, // true for 465, false for other ports
+        //port: 465,
+        //secure: true, // true for 465, false for other ports
         auth: { 
           user: "webdevtesting@gmail.com", // generated ethereal user
           pass: process.env.PWD // generated ethereal password
