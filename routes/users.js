@@ -43,10 +43,10 @@ router.post("/register", async function (req, res) {
         host: "smtp.gmail.com",
         //port: 465,
         //secure: true, // true for 465, false for other ports
-        auth: { 
+        auth: {
           user: "webdevtesting79@gmail.com", // generated ethereal user
           pass: process.env.PWD // generated ethereal password
-        }
+      }
       });
 
       let mailOptions={
@@ -130,39 +130,34 @@ router.post("/validate", async function (req, res) {
     {
       const data = `<a href="https://password-reset.netlify.app/reset.html">Click here to validate</a>`;
       let transporter = nodemailer.createTransport({
+        service: "gmail",
         host: "smtp.gmail.com",
-        port: 587,
-        secure: false, // true for 465, false for other ports
+        //port: 465,
+        //secure: true, // true for 465, false for other ports
         auth: {
-          user: "fullstack.webtesting@gmail.com", // generated ethereal user
-          pass: pwd, // generated ethereal password
-        },
-        tls: {
-          // do not fail on invalid certs
-          rejectUnauthorized: false
+            user: "webdevtesting79@gmail.com", // generated ethereal user
+            pass: process.env.PWD // generated ethereal password
         }
-      });
-
-      let mailOptions={
-        from: '"Nishant" <fullstack.webtesting@gmail.com>', // sender address
-        to: "fullstack.webtesting@gmail.com", // list of receivers
-        subject: "testing...", // Subject line
-        text: "Hello world?", // plain text body
-        html: data // html body
-      };
+    });
     
-      // send mail with defined transport object
-      transporter.sendMail(mailOptions,(error,info)=>{
-        if(error)
-        {
-          console.log("error: "+error);
+    let mailOptions = {
+        from: "webdevtesting79@gmail.com", // sender address
+        to: "tnahsin79@gmail.com", // list of receivers
+        subject: "testing...", // Subject line
+        text: "Hello world?" // plain text body
+    };
+    
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log("error: " + error);
         }
-        else
-        {
-          console.log("Message sent: %s", info.messageId);
-          console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+        else {
+            console.log("Message sent: %s", info.messageId);
+            console.log("email sent: %s", info.response);
+            //console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
         }
-      });
+    });
     }
     else
     {
