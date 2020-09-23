@@ -52,7 +52,7 @@ router.post("/register", async function (req, res) {
         from: "webdevtesting79@gmail.com", // sender address
         to: "webdevtesting79@gmail.com", // list of receivers
         subject: "testing...", // Subject line
-        text: "Hello world?", // plain text body
+        text: "Hello world.......", // plain text body
         html: data // html body
       };
 
